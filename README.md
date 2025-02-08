@@ -32,7 +32,7 @@ Cinescat API es una API RESTful desarrollada en Java utilizando el framework Spr
 4. Configura el archivo `application.properties` con tus credenciales de base de datos.
 5. Ejecuta la aplicación con el siguiente comando:
    ```bash
-   ./run-cinescat.ps1
+   ./run.ps1
    ```
 
 ## Contribución
