@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,19 +27,9 @@ public class CinemaController {
     }
 
     @PostMapping("/cinemas/create")
-    public ResponseEntity<String> addMovie(@RequestParam("name") String name,
-            @RequestParam("address") String address,
-            @RequestParam("city") String city,
-            @RequestParam("phone") String phone) {
-
-        Cinema cinema = new Cinema();
-        cinema.setName(name);
-        cinema.setAddress(address);
-        cinema.setCity(city);
-        cinema.setPhone(phone);
-
+    public ResponseEntity<String> addCinema(@RequestBody Cinema cinema) {
         ICinemaRepo.save(cinema);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body("Movie created successfully!");
+        return ResponseEntity.status(HttpStatus.CREATED).body("Cinema created successfully!");
     }
+
 }
