@@ -21,7 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kapu.cinescat.models.Movie;
 import com.kapu.cinescat.repo.IMovieRepo;
 
-@CrossOrigin(origins = {"http://localhost:5173", "https://1ktzpbmr-5173.brs.devtunnels.ms"})
+@CrossOrigin(origins = { "http://localhost:5173", "https://1ktzpbmr-5173.brs.devtunnels.ms" })
 @RestController
 public class MovieController {
 
@@ -37,14 +37,19 @@ public class MovieController {
     }
 
     @PostMapping("/movies/create")
-    public ResponseEntity<String> addMovie(@RequestParam("title") String title,
-            @RequestParam("description") String description,
-            @RequestParam("genre") String genre,
-            @RequestParam("image") MultipartFile image) {
+    public ResponseEntity<String> addMovie(@RequestParam() String title,
+            @RequestParam() String description,
+            @RequestParam() String genre,
+            @RequestParam() MultipartFile image) {
+
+        if (image.isEmpty()) {
+            return ResponseEntity.badRequest().body("Image file is required.");
+        }
 
         try {
-            String imageName = saveImage(image);
+
             // Guardar la imagen
+            String imageName = saveImage(image);
 
             // Crear una nueva película con los datos recibidos
             Movie movie = new Movie();
@@ -67,21 +72,21 @@ public class MovieController {
         if (image.isEmpty()) {
             throw new IOException("No image file uploaded");
         }
-    
+
         // Crear un nombre único para la imagen
         String imageName = System.currentTimeMillis() + "_" + image.getOriginalFilename();
-    
+
         // Definir la ruta donde se guardará la imagen
         Path path = Paths.get(uploadDir + File.separator + imageName);
-    
+
         // Crear el directorio si no existe
         Files.createDirectories(path.getParent());
-    
+
         System.out.println("Ruta de guardado de la imagen: " + path.toString());
-    
+
         // Guardar la imagen en el directorio
         Files.write(path, image.getBytes());
-    
+
         return imageName;
     }
 }

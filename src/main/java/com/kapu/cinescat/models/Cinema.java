@@ -1,31 +1,38 @@
 package com.kapu.cinescat.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "cinemas")
 public class Cinema {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name="name", length = 50)
+    @NotBlank(message = "El nombre del cine es obligatorio.")
+    @Size(max = 50, message = "El nombre no puede exceder 50 caracteres.")
+    @Column(name = "name", length = 50, nullable = false)
     private String name;
 
-    @Column(name="address", length = 250)
+    @NotBlank(message = "La dirección es obligatoria.")
+    @Size(max = 250, message = "La dirección no puede exceder 250 caracteres.")
+    @Column(name = "address", length = 250, nullable = false)
     private String address;
 
-    @Column(name="city", length = 50)
+    @NotBlank(message = "La ciudad es obligatoria.")
+    @Size(max = 50, message = "La ciudad no puede exceder 50 caracteres.")
+    @Column(name = "city", length = 50, nullable = false)
     private String city;
 
-    @Column(name="phone", length = 50)
+    @NotBlank(message = "El teléfono es obligatorio.")
+    @Size(max = 50, message = "El número de teléfono no puede exceder 50 caracteres.")
+    @Column(name = "phone", length = 50, nullable = false)
     private String phone;
 
+    // Getters y Setters
     public int getId() {
         return id;
     }
@@ -65,6 +72,4 @@ public class Cinema {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
-    
 }
