@@ -35,8 +35,8 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Object> login(@RequestParam("username") String username,
-            @RequestParam("password") String password) {
+    public ResponseEntity<Object> login(@RequestParam String username,
+            @RequestParam String password) {
         Optional<User> userOptional = IUser.findByUsername(username);
 
         if (userOptional.isPresent()) {

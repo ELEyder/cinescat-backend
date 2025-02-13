@@ -12,7 +12,7 @@ Cinescat API es una API RESTful desarrollada en Java utilizando el framework Spr
 
 ## Tecnologías utilizadas
 
-- **Java 17**
+- **Java 21**
 - **Spring Boot**
 - **Spring Data JPA**
 - **MySQL/PostgreSQL** (a través de **XAMPP** si se utiliza MySQL)

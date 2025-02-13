@@ -1,13 +1,12 @@
-# run-cinescat.ps1
-$javaPath = "C:\Program Files\Java\jdk-21\bin\java.exe"
-$mainClass = "com.kapu.cinescat.CinescatApplication"
-$argFile = (Get-ChildItem -Path $env:TEMP -Filter *.argfile | Sort-Object LastWriteTime -Descending | Select-Object -First 1).FullName
-
-# Verifica si Java está instalado
-if (!(Test-Path $javaPath)) {
-    Write-Host "Java no está instalado en la ruta especificada: $javaPath" -ForegroundColor Red
+if (!(Get-Command mvn -ErrorAction SilentlyContinue)) {
+    Write-Host "Maven no está instalado o no está en la variable PATH." -ForegroundColor Red
     exit 1
 }
 
-# Ejecutar la aplicación
-& $javaPath "@$argFile" $mainClass
+$javaVersion = & java -version 2>&1 | Select-String -Pattern 'version "21'
+if (!$javaVersion) {
+    Write-Host "Java 21 no está instalado o no está configurado correctamente en el PATH." -ForegroundColor Red
+    exit 1
+}
+
+mvn spring-boot:run

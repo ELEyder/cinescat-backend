@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,7 +76,7 @@ public class MovieController {
         String imageName = System.currentTimeMillis() + "_" + image.getOriginalFilename();
 
         // Definir la ruta donde se guardará la imagen
-        Path path = Paths.get(uploadDir + File.separator + imageName);
+        Path path = Path.of(uploadDir + File.separator + imageName);
 
         // Crear el directorio si no existe
         Files.createDirectories(path.getParent());
